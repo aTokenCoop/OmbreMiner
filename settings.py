@@ -13,7 +13,7 @@ import logging
 
 from utils.common import getHomeDir, makeDir
 
-USER_AGENT = APP_NAME = "Sumo Easy Miner"
+USER_AGENT = APP_NAME = "Ombre Miner"
 VERSION = [0, 1, 'b1.3']
 
 OPT_RANDOMIZE = False  # Randomize scan range start to reduce duplicates
@@ -24,8 +24,8 @@ OPT_PING_INTERVAL = 1 # Ping interval in second
 
 HASHING_ALGO = ["Cryptonight", "Cryptonight-Light"]
 
-_data_dir = str(makeDir(os.path.join(getHomeDir(), 'SumoMiner')))
+_data_dir = str(makeDir(os.path.join(getHomeDir(), 'OmbreMiner')))
 DATA_DIR = _data_dir
 
-log_file  = os.path.join(DATA_DIR, 'logs', 'sumominer.log') # default logging file
+log_file  = os.path.join(DATA_DIR, 'logs', 'ombreminer.log') # default logging file
 log_level = logging.DEBUG # logging level

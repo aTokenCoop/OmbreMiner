@@ -22,10 +22,10 @@ file_hashes = [
         ('www/scripts/mustache.min.js', '3258bb61f5b69f33076dd0c91e13ddd2c7fe771882adff9345e90d4ab7c32426'),
         ('www/scripts/jquery.sparkline.js', '6bb90109f3b9a5936a3e3984ef424391dfee5c70a715d2c5f27934d43a7c81b7'),
         ('www/scripts/utils.js', 'e4362beaee047dcf9eb94129413509243f42dda5fcd3242be7d66b70308f932a'),
-        
+
         ('www/css/bootstrap.min.css', '2e4ceda16bdb9f59b01ee01552e8a353ee7cc4e4ebac7d51413106094384ef37'),
         ('www/css/font-awesome.min.css', 'b8b02026a298258ce5069d7b6723c2034058d99220b6612b54bc0c5bf774dcfb'),
-        
+
         ('www/css/fonts/fontawesome-webfont.ttf', '7b5a4320fba0d4c8f79327645b4b9cc875a2ec617a557e849b813918eb733499'),
         ('www/css/fonts/glyphicons-halflings-regular.ttf', 'e395044093757d82afcb138957d06a1ea9361bdcf0b442d06a18a8051af57456'),
         ('www/css/fonts/RoboReg.ttf', 'dc66a0e6527b9e41f390f157a30f96caed33c68d5db0efc6864b4f06d3a41a50'),
@@ -42,7 +42,7 @@ def _check_file_integrity(app):
 #         print( file_path, hashlib.sha256(data).hexdigest() )
         if hashlib.sha256(data).hexdigest() != file_hash:
             return False
-        
+
     return True
 
 
@@ -55,36 +55,36 @@ def main():
         sys.__stdout__ = DummyStream()
         sys.__stderr__ = DummyStream()
         sys.__stdin__ = DummyStream()
-              
+
     # Get application path
     app_path = getAppPath()
     if sys.platform == 'darwin' and hasattr(sys, 'frozen'):
         resources_path = os.path.normpath(os.path.abspath(os.path.join(app_path, "..", "Resources")))
     else:
         resources_path = os.path.normpath(os.path.abspath(os.path.join(app_path, "Resources")))
-        
+
     # Application setup
     app = QSingleApplication(sys.argv)
-    app.setOrganizationName('Sumokoin')
-    app.setOrganizationDomain('www.sumokoin.org')
+    app.setOrganizationName('Ombre')
+    app.setOrganizationDomain('www.ombre.io')
     app.setApplicationName(APP_NAME)
     app.setProperty("AppPath", app_path)
     app.setProperty("ResPath", resources_path)
     if sys.platform != 'win32':
         app.setAttribute(qt_core.Qt.AA_DontShowIconsInMenus)
-    
+
     app.setStyleSheet('QMainWindow{background-color: white;}')
     app.setStyleSheet('QDialog{background-color: white;}')
-    
+
     if not _check_file_integrity(app):
         QMessageBox.critical(None, "Application Fatal Error", """<b>File integrity check failed!</b>
                 <br><br>This could be a result of unknown (maybe, malicious) action<br> to code files.""")
         app.quit()
         return
-    
+
     hub = Hub(app=app)
     ui = WebUI(app=app, hub=hub, debug=False)
     hub.setUI(ui)
     app.singleStart(ui)
-        
+
     sys.exit(app.exec_())
